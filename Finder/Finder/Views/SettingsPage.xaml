@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Finder.Views.SettingsPage"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             BackgroundColor="{StaticResource SecondaryColor}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="20,20,20,10" 
+                  Grid.Row="0" 
+                  VerticalOptions="CenterAndExpand">
+                <ffimageloadingsvg:SvgCachedImage Source="arrow_left_ic.svg" 
+                                                  HeightRequest="30" WidthRequest="30" 
+                                                  VerticalOptions="Center" 
+                                                  HorizontalOptions="Start">
+                    <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnTapBackCommand}" NumberOfTapsRequired="1"/>
+                    </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                </ffimageloadingsvg:SvgCachedImage>
+
+                <Image HeightRequest="60"  
+                       Source="finder_name_dark.png" 
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"/>
+            </Grid>
+
+            <ScrollView Grid.Row="1" 
+                        VerticalOptions="FillAndExpand"
+                        Margin="20,10,20,20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Frame IsClippedToBounds="True"
+                           Grid.Row="0"
+                           CornerRadius="100"
+                           Padding="0"
+                           Margin="20"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalOptions="CenterAndExpand">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="iOS" Value="90"/>
+                                <On Platform="Android" Value="100"/>
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        
+                        <Image Source="{Binding User.avatar}"
+                               HeightRequest="180"
+                               WidthRequest="180"
+                               Aspect="Fill"
+                               VerticalOptions="FillAndExpand"
+                               HorizontalOptions="FillAndExpand"/>
+                    </Frame>
+                    
+                    <StackLayout Orientation="Horizontal"
+                                 Grid.Row="1"
+                                 Spacing="10"
+                                 HorizontalOptions="CenterAndExpand">
+                        
+                        <Label FontSize="32"
+                               VerticalOptions="CenterAndExpand"
+                               FontFamily="{StaticResource Key=FontStyleLatoBold}" 
+                               TextColor="White" >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding User.first_name}"/>
+                                    <Span Text=","/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        
+                        <Label FontSize="32"
+                               TextColor="White"
+                               VerticalOptions="CenterAndExpand"
+                               Text="{Binding User.age}"/>
+                    </StackLayout>
+
+                    <Editor Grid.Row="2" 
+                            BackgroundColor="Transparent"
+                            Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+                            FontSize="18"
+                            TextColor="White"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="StartAndExpand"/>
+                </Grid>
+            </ScrollView>
+                      
+            <Frame Grid.Row="2" 
+                   CornerRadius="30"
+                   Margin="20,0,20,20"
+                   BackgroundColor="White" 
+                   Padding="0">
+                <Frame.CornerRadius>
+                    <OnPlatform x:TypeArguments="x:Single">
+                        <On Platform="iOS" Value="20"/>
+                        <On Platform="Android" Value="30"/>
+                    </OnPlatform>
+                </Frame.CornerRadius>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OnTapLogoutCommand}" NumberOfTapsRequired="1"/>
+                </Frame.GestureRecognizers>
+                <Label Text="Wyloguj się" 
+                       TextColor="{StaticResource PrimaryColor}"
+                       FontFamily="{StaticResource Key=FontStyleLatoBold}" 
+                       FontSize="18"
+                       Margin="10"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"/>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

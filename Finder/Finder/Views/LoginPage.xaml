@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Finder.Controls;assembly=Finder"
+             mc:Ignorable="d"
+             x:Class="Finder.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{StaticResource PrimaryColor}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+			<Image Margin="20"
+                   Grid.Row="0" 
+                   Source="finder_name.png" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center"/>
+
+            <Grid Grid.Row="1" 
+                  Margin="30,0,30,30" 
+                  RowSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Frame Grid.Row="0" 
+                       HorizontalOptions="FillAndExpand" 
+                       VerticalOptions="FillAndExpand"
+                       CornerRadius="30" 
+                       HasShadow="False" 
+                       Padding="0,0,0,0">
+                    <Frame.CornerRadius>
+                        <OnPlatform x:TypeArguments="x:Single">
+                            <On Platform="iOS" Value="20"/>
+                            <On Platform="Android" Value="30"/>
+                        </OnPlatform>
+                    </Frame.CornerRadius>
+                    
+                    <local:MyEntry x:Name="entry_Login" 
+                                   Placeholder="Login" 
+                                   Text="{Binding Email}"
+                                   Margin="10,10,10,10"
+                                   PlaceholderColor="{StaticResource PrimaryColor}" 
+                                   TextColor="{StaticResource PrimaryColor}"
+                                   Keyboard="Email"  
+                                   FontSize="16"
+                                   HorizontalOptions="FillAndExpand" 
+                                   VerticalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="Start">
+                        <local:MyEntry.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="iOS" Value="10,10,10,10"/>
+                                <On Platform="Android" Value="10,0,10,0"/>
+                            </OnPlatform>
+                        </local:MyEntry.Margin>
+                    </local:MyEntry>
+                </Frame>
+
+                <Frame Grid.Row="1" 
+                       CornerRadius="30"
+                       HasShadow="False"  
+                       HorizontalOptions="FillAndExpand"     
+                       VerticalOptions="FillAndExpand"
+                       Padding="0,0,0,0">
+                    <Frame.CornerRadius>
+                        <OnPlatform x:TypeArguments="x:Single">
+                            <On Platform="iOS" Value="20"/>
+                            <On Platform="Android" Value="30"/>
+                        </OnPlatform>
+                    </Frame.CornerRadius>
+                    
+                    <local:MyEntry x:Name="entry_Pass" Placeholder="Hasło"   
+                                   Text="{Binding Password}"
+                                   PlaceholderColor="{StaticResource PrimaryColor}" 
+                                   TextColor="{StaticResource PrimaryColor}"
+                                   Margin="10,10,10,10"
+                                   IsPassword="True" 
+                                   FontSize="16"                               
+                                   HorizontalOptions="FillAndExpand" 
+                                   VerticalOptions="FillAndExpand" 
+                                   HorizontalTextAlignment="Start">
+                        <local:MyEntry.Margin>
+                            <OnPlatform x:TypeArguments="Thickness">
+                                <On Platform="iOS" Value="10,10,10,10"/>
+                                <On Platform="Android" Value="10,0,10,0"/>
+                            </OnPlatform>
+                        </local:MyEntry.Margin>
+                    </local:MyEntry>
+                </Frame>
+
+                <Frame x:Name="frm_Login" 
+                       Grid.Row="2" 
+                       CornerRadius="30"
+                       Margin="0,20,0,0"
+                       BackgroundColor="{StaticResource SecondaryColor}" 
+                       Padding="0">
+                    <Frame.CornerRadius>
+                        <OnPlatform x:TypeArguments="x:Single">
+                            <On Platform="iOS" Value="20"/>
+                            <On Platform="Android" Value="30"/>
+                        </OnPlatform>
+                    </Frame.CornerRadius>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LoginCommand}" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                    
+                    <Label Text="Zaloguj się" 
+                           TextColor="{StaticResource PrimaryColor}"
+                           FontFamily="{StaticResource Key=FontStyleLatoBold}" 
+                           FontSize="18"
+                           Margin="10"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                </Frame>
+
+                <Image  x:Name="img_heart" 
+                        Source="Finder_logo_heart.png" 
+                        Grid.Row="3" 
+                        VerticalOptions="FillAndExpand" />
+
+                <ActivityIndicator Grid.Row="3" 
+                                   Color="{StaticResource SecondaryColor}"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand"
+                                   IsRunning="{Binding IsBusy}" />
+            </Grid>
+
+            <Label Text="v1.2.5" 
+                   Margin="5"
+                   Grid.Row="1" 
+                   TextColor="{StaticResource SecondaryColor}" 
+                   FontSize="12" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="End"/>
+            <RelativeLayout Grid.Row="0" 
+                            BackgroundColor="Black" 
+                            Grid.RowSpan="2" 
+                            IsVisible="{Binding IsBusy}" 
+                            Opacity="0.3" />
+        </Grid >
+    </ContentPage.Content>
+</ContentPage>

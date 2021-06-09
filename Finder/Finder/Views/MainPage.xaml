@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Finder.Views.MainPage"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
+             BackgroundColor="{StaticResource SecondaryColor}">
+    <ContentPage.Content>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            
+            <StackLayout Orientation="Horizontal"
+                         Margin="20,20,20,0"
+                         Grid.Row="0">
+
+                <ffimageloadingsvg:SvgCachedImage x:Name="svg_Settings" 
+                                                  Source="user_ic.svg" 
+                                                  HeightRequest="40" 
+                                                  WidthRequest="40" 
+                                                  VerticalOptions="Center" 
+                                                  HorizontalOptions="StartAndExpand">
+                    <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnTapSettingsCommand}" NumberOfTapsRequired="1"/>
+                    </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                </ffimageloadingsvg:SvgCachedImage>
+                
+                <Image HeightRequest="60" 
+                       Source="finder_name_dark.png"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/>
+
+                <ffimageloadingsvg:SvgCachedImage x:Name="svg_Mess" Source="chat_ic.svg" 
+                                                  HeightRequest="40" WidthRequest="40" 
+                                                  VerticalOptions="Center" 
+                                                  HorizontalOptions="EndAndExpand">
+                    <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnTapMessagesCommand}" NumberOfTapsRequired="1"/>
+                    </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                </ffimageloadingsvg:SvgCachedImage>
+            </StackLayout>
+
+            <Label Text="Brak nowych osób" 
+                   Grid.Row="1"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   TextColor="{StaticResource PrimaryColor}"
+                   FontFamily="{StaticResource Key=FontStyleLatoBold}" 
+                   FontSize="24"/>
+            <StackLayout Grid.Row="1" 
+                         VerticalOptions="FillAndExpand">
+                <swipeCardView:SwipeCardView x:Name="SwipeCard"  
+                                             ItemsSource="{Binding Users}" 
+                                             SwipedCommand="{Binding SwipedCommand}"
+                                             HorizontalOptions="FillAndExpand"
+                                             VerticalOptions="FillAndExpand"
+                                             Padding="10,0,10,0"
+                                             SupportedSwipeDirections="Left,Right">
+                    <swipeCardView:SwipeCardView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout VerticalOptions="FillAndExpand" 
+                                         HorizontalOptions="FillAndExpand">
+
+                                <Frame CornerRadius="10" 
+                                       Padding="0"
+                                       VerticalOptions="FillAndExpand"
+                                       HorizontalOptions="FillAndExpand"
+                                       IsClippedToBounds="True">
+
+                                    <Grid VerticalOptions="FillAndExpand"
+                                          HorizontalOptions="FillAndExpand">
+
+                                        <Image Source="{Binding avatar}" 
+                                               Grid.Row="0"
+                                               VerticalOptions="FillAndExpand"
+                                               HorizontalOptions="FillAndExpand"
+                                               Aspect="AspectFill" />
+
+                                        <StackLayout Grid.Row="0" 
+                                                     Margin="20"
+                                                     VerticalOptions="EndAndExpand">
+
+                                            <StackLayout Orientation="Horizontal"
+                                                     Spacing="10"
+                                                     VerticalOptions="EndAndExpand">
+
+                                                <Label FontSize="32"
+                                                       VerticalOptions="CenterAndExpand"
+                                                       FontFamily="{StaticResource Key=FontStyleLatoBold}" 
+                                                       TextColor="White" >
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding first_name}"/>
+                                                            <Span Text=","/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+
+                                                <Label FontSize="32"
+                                                       TextColor="White"
+                                                       VerticalOptions="CenterAndExpand"
+                                                       Text="{Binding age}"/>
+                                            </StackLayout>
+
+                                            <Label FontSize="22"
+                                                   TextColor="White"
+                                                   HorizontalOptions="StartAndExpand">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding distance}"/>
+                                                        <Span Text="km stąd"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                                                   FontSize="16"
+                                                   TextColor="White"
+                                                   HorizontalOptions="StartAndExpand"/>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </swipeCardView:SwipeCardView.ItemTemplate>
+                </swipeCardView:SwipeCardView>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" 
+                         Grid.Row="2"
+                         Margin="20">
+                <Frame x:Name="frm_Reject" 
+                       BackgroundColor="WhiteSmoke" 
+                       CornerRadius="60"
+                       VerticalOptions="Center" 
+                       Padding="0"
+                       HorizontalOptions="CenterAndExpand"
+                       HeightRequest="70" 
+                       WidthRequest="70" >
+                    <Frame.CornerRadius>
+                        <OnPlatform x:TypeArguments="x:Single">
+                            <On Platform="iOS" Value="35"/>
+                            <On Platform="Android" Value="60"/>
+                        </OnPlatform>
+                    </Frame.CornerRadius>
+                    <ffimageloadingsvg:SvgCachedImage x:Name="svg_Reject" 
+                                                      Source="reject_ic.svg"
+                                                      HeightRequest="80" 
+                                                      WidthRequest="80" 
+                                                      VerticalOptions="Center" 
+                                                      IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
+                                                      HorizontalOptions="CenterAndExpand">
+                        <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnTapRejectCommand}" NumberOfTapsRequired="1"/>
+                        </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                    </ffimageloadingsvg:SvgCachedImage>
+                </Frame>
+
+                <Frame x:Name="frm_Like" 
+                       BackgroundColor="WhiteSmoke" 
+                       CornerRadius="60"
+                       VerticalOptions="Center" 
+                       Padding="0"
+                       HorizontalOptions="CenterAndExpand"
+                       HeightRequest="70" 
+                       WidthRequest="70" >
+                    <Frame.CornerRadius>
+                        <OnPlatform x:TypeArguments="x:Single">
+                            <On Platform="iOS" Value="35"/>
+                            <On Platform="Android" Value="60"/>
+                        </OnPlatform>
+                    </Frame.CornerRadius>
+                    <ffimageloadingsvg:SvgCachedImage x:Name="svg_Like" 
+                                                      Source="like_ic.svg" 
+                                                      HeightRequest="80" 
+                                                      WidthRequest="80" 
+                                                      VerticalOptions="Center" 
+                                                      IsEnabled="{Binding IsBusy, Converter={StaticResource InvertBoolConverter}}"
+                                                      HorizontalOptions="CenterAndExpand">
+                        <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OnTapLikeCommand}" NumberOfTapsRequired="1"/>
+                        </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                    </ffimageloadingsvg:SvgCachedImage>
+                </Frame>
+            </StackLayout>
+
+            <StackLayout x:Name="stkAll" Grid.Row="0" BackgroundColor="{StaticResource SecondaryColor}" IsVisible="False" Grid.RowSpan="3" />
+
+            <StackLayout x:Name="stkAllDialog" Opacity="0" Grid.Row="0" IsVisible="False" Grid.RowSpan="3" VerticalOptions="Center" HorizontalOptions="Center">
+                <Image x:Name="SvgDialog" Source="finder_name_dark.png" HeightRequest="300" WidthRequest="300" VerticalOptions="Center" HorizontalOptions="Center"  />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

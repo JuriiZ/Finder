@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             x:Class="Finder.Views.MessagesPage"
+             BackgroundColor="{StaticResource SecondaryColor}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="20,20,20,10"
+                  Grid.Row="0" 
+                  VerticalOptions="CenterAndExpand">
+                <ffimageloadingsvg:SvgCachedImage Source="arrow_left_ic.svg" 
+                                                  HeightRequest="30" WidthRequest="30" 
+                                                  VerticalOptions="Center" 
+                                                  HorizontalOptions="Start">
+                    <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OnTapBackCommand}" NumberOfTapsRequired="1"/>
+                    </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                </ffimageloadingsvg:SvgCachedImage>
+                
+                <Image HeightRequest="60" 
+                       Source="finder_name_dark.png" 
+                       VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand"/>
+            </Grid>
+
+            <StackLayout Grid.Row="1" 
+                         Margin="20,10,20,10">
+                <Label Text="Nowe dopasowania"
+                       FontSize="16"
+                       TextColor="{StaticResource PrimaryColor}"/>
+                <CollectionView Margin="0,10,0,0"
+                                ItemsSource="{Binding Matches}" 
+                                HorizontalScrollBarVisibility="Never"
+                                HeightRequest="70">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Horizontal" HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+                    
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout VerticalOptions="CenterAndExpand" 
+                                         Spacing="0"
+                                         HorizontalOptions="CenterAndExpand">
+                                <Frame Padding="0"
+                                       IsClippedToBounds="True"
+                                       CornerRadius="60"
+                                       HasShadow="False"
+                                       VerticalOptions="CenterAndExpand"
+                                       HorizontalOptions="CenterAndExpand">
+                                    <Frame.CornerRadius>
+                                        <OnPlatform x:TypeArguments="x:Single">
+                                            <On Platform="iOS" Value="25"/>
+                                            <On Platform="Android" Value="60"/>
+                                        </OnPlatform>
+                                    </Frame.CornerRadius>
+                                    
+                                    <Image Source="{Binding avatar}"
+                                           HeightRequest="50"
+                                           WidthRequest="50"
+                                           Aspect="Fill"      
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="CenterAndExpand"/>
+                                </Frame>
+                                
+                                <Label Text="{Binding first_name}"
+                                       TextColor="WhiteSmoke"
+                                       FontSize="14"
+                                       VerticalOptions="EndAndExpand"
+                                       HorizontalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2"
+                         Margin="20,10,20,10">
+                <Label Text="Powiadomienia"
+                       FontSize="16"
+                       TextColor="{StaticResource PrimaryColor}"/>
+                <ListView ItemsSource="{Binding Matches}" 
+                          HasUnevenRows="True"                      
+                          SelectionMode="None"
+                          VerticalScrollBarVisibility="Never"
+                          BackgroundColor="{StaticResource SecondaryColor}"
+                          VerticalOptions="FillAndExpand">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell Height="80">
+                                <Grid ColumnSpacing="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame Padding="0"
+                                           Grid.Column="0"
+                                           IsClippedToBounds="True"
+                                           CornerRadius="60"
+                                           HasShadow="false"
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="CenterAndExpand">
+                                        <Frame.CornerRadius>
+                                            <OnPlatform x:TypeArguments="x:Single">
+                                                <On Platform="iOS" Value="25"/>
+                                                <On Platform="Android" Value="60"/>
+                                            </OnPlatform>
+                                        </Frame.CornerRadius>
+                                        
+                                        <Image Source="{Binding avatar}"
+                                               HeightRequest="50"
+                                               WidthRequest="50"
+                                               Aspect="Fill"   
+                                               VerticalOptions="CenterAndExpand"
+                                               HorizontalOptions="CenterAndExpand"/>
+                                    </Frame>
+                                    
+                                    <StackLayout Grid.Column="1"
+                                                 VerticalOptions="CenterAndExpand">
+                                        
+                                        <Label Text="{Binding first_name}"
+                                               TextColor="WhiteSmoke"
+                                               FontSize="16"/>
+                                        
+                                        <Label Text="{Binding email}"
+                                               TextColor="WhiteSmoke"
+                                               Opacity="0.6"
+                                               FontSize="14"/>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
